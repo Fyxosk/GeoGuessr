@@ -2,6 +2,7 @@ import subprocess
 import os
 import sys
 import discord
+import requests
 import time
 import importlib.util
 
@@ -153,13 +154,10 @@ async def is_valid_url(url):
     """
 
     try:
-        # curl to check if the URL is valid by getting the code
-        output, _ = execute("curl --head -s " + url)
-        output = output.decode("utf-8")
+        ret_code = requests.get(url).status_code
 
-        # Look at the head of the response after curl, if the first few characters do not
-        # contain 200, the URL can't be used
-        if "200" in output[:lookup200]:
+        # If the status code is not 200, the url is invalid
+        if ret_code == 200:
             return True
         return False
     except Exception as _:
