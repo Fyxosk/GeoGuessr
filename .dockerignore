@@ -1,0 +1,5 @@
+**/__pycache__/
+**/geckodriver.log
+**/shortcuts.txt
+**/.vscode
+doc/
